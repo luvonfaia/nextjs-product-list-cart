@@ -2,11 +2,22 @@
 import { createContext, useState } from "react";
 import { useEffect } from "react";
 export const CartContext = createContext();
+
+const getLocalStorage = () => {
+  if (typeof window !== "undefined") {
+    let cartItems = localStorage.getItem("cartItems");
+
+    if (cartItems) {
+      return JSON.parse(localStorage.getItem("cartItems"));
+    }
+  } else {
+    return [];
+  }
+};
+
 export const CartProvider = ({ children }) => {
 
- const [cartItems, setCartItems] = useState(
-    localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [],
- );
+ const [cartItems, setCartItems] = useState(getLocalStorage());
 
  const addToCart = (item) => {
     // Check if the item is already in the cart
@@ -24,7 +35,7 @@ export const CartProvider = ({ children }) => {
       );
     } else {
       setCartItems([...cartItems, { ...item, quantity: 1 }]);
-    }
+    };
   };
 
   const removeFromCart = (item) => {
@@ -64,6 +75,7 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
+
 // checking if cartItems is in the local storage
   useEffect(() => {
     const cartItems = localStorage.getItem("cartItems");
