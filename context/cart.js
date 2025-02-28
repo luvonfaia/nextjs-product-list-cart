@@ -9,6 +9,8 @@ const getLocalStorage = () => {
 
     if (cartItems) {
       return JSON.parse(localStorage.getItem("cartItems"));
+    } else {
+      return [];
     }
   } else {
     return [];

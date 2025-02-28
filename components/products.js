@@ -8,7 +8,7 @@ import { ShoppingCart } from "lucide-react";
 import { useContext, useState } from "react";
 import { CartContext } from "@/context/cart";
 import { Cart,  } from "./cart";
-import {CartProvider} from "@/context/cart";
+
 
 
 
